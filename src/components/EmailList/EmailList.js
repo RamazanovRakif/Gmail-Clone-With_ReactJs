@@ -1,5 +1,5 @@
 import { Checkbox, IconButton } from '@material-ui/core'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import "./EmailList.css"
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import RedoIcon from '@material-ui/icons/Redo'
@@ -14,10 +14,27 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 
 import Section from '../Section/Section'
 import EmailRow from '../EmailRow/EmailRow'
+import { db } from '../../firebase/firebase'
+
 
 const EmailList = () => {
+
+    const [emails, setEmails] = useState([]);
+    useEffect(() => {
+        db.collection('emails')
+            .orderBy('timestamp', 'desc')
+            .onSnapshot((snapshot) =>
+                setEmails(snapshot.docs.map((d) => ({
+                    id: d.id,
+                    data: d.data(),
+
+                }))))
+    }, [])
+
+
     return (
         <div className="email__list">
+
             <div className="email__list__settings">
                 <div className="email__list__settings__left">
                     <Checkbox />
@@ -54,6 +71,19 @@ const EmailList = () => {
             </div>
 
             <div className="email__list__list">
+                {
+                    emails.map(({ id, data: { to, subject, message, timestamp } }) => (
+                        <EmailRow
+                            id={id}
+                            key={id}
+                            title={to}
+                            subject={subject}
+                            description={message}
+                            time={new Date(timestamp?.seconds * 1000).toUTCString()}
+
+                        />
+                    ))
+                }
                 <EmailRow
 
                     title="Twitch"
@@ -68,6 +98,84 @@ const EmailList = () => {
                     description="This is a test"
                     time="10pm"
                 />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+                <EmailRow
+
+                    title="Twitch"
+                    subject="Hey fellowsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa streamer!!!"
+                    description="This is a test"
+                    time="10pm"
+                />
+
             </div>
         </div>
     )

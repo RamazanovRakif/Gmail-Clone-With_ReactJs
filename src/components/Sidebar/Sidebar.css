@@ -1,6 +1,6 @@
 .sidebar{
     flex:0;
-    max-width: 300px;
+    min-width: 300px;
     padding-right: 20px;
 }
 .sidebar__compose {
